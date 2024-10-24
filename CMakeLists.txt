@@ -6,11 +6,11 @@ SET(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 option(LCXX_GENERATE_KEYS "Whether RSA key files should be generated during build time." OFF)
 option(LCXX_NLOHMANN_JSON_CMAKE_FETCH "Whether licensecxx tries to download its own version of nlohmann::json" ON)
 
-include(cmake/get_version.cmake)
-pull_version()
+# include(cmake/get_version.cmake)
+# pull_version()
 
 project (lcxx
-			VERSION ${GIT_VER_BASE}
+			VERSION 1.0.0
 			LANGUAGES CXX)
 
 set(VERSION_DIR ${CMAKE_BINARY_DIR}/version)
@@ -25,5 +25,5 @@ endif()
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/modules)
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/tests)
-add_subdirectory(${PROJECT_SOURCE_DIR}/samples)
+# add_subdirectory(${PROJECT_SOURCE_DIR}/tests)
+# add_subdirectory(${PROJECT_SOURCE_DIR}/samples)
