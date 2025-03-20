@@ -17,7 +17,7 @@ namespace lcxx::experimental::identifiers {
         error         err;
         std::string   hash;
         std::string   source_text;
-        ident_strat_t ident_strat;
+        ident_strat_t ident_strat{};
     };
 
 }  // namespace lcxx::experimental::identifiers
