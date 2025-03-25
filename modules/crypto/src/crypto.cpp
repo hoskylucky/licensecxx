@@ -62,7 +62,8 @@ namespace lcxx::crypto {
     auto load_key( std::string const & key, key_type const type ) -> rsa_key_t
     {
         std::unique_ptr< BIO, decltype( &bio_deleter ) > bio(
-            BIO_new_mem_buf( static_cast< const void * >( key.c_str() ), key.size() ), bio_deleter );
+            BIO_new_mem_buf( static_cast< const void * >( key.c_str() ), static_cast< int >( key.size() ) ),
+            bio_deleter );
 
         rsa_key_t rsa_key = { nullptr, key_deleter };
 

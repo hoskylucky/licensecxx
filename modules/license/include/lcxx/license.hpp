@@ -17,8 +17,9 @@ namespace lcxx {
     constexpr auto content_key   = "content";
 
     template < typename T >
-    concept string_convertable = std::is_same_v< T, std::string > || std::is_integral_v< T >() ||
-        std::is_floating_point_v< T >() || std::is_enum_v< T >() || std::is_convertible_v< T, std::string >;
+    concept string_convertable =
+        std::is_same_v< T, std::string > || std::is_integral_v< T >() || std::is_floating_point_v< T >() ||
+        std::is_enum_v< T >() || std::is_convertible_v< T, std::string >;
 
     using signature     = std::vector< std::byte >;
     using content_map_t = std::unordered_map< std::string, std::string >;
@@ -48,17 +49,15 @@ namespace lcxx {
             auto func = [this]( std::string const & k, std::string const & v ) {
                 return content_.insert_or_assign( k, v ).second;
             };
-            if constexpr ( std::is_same< S, std::string >() )
+            if constexpr ( std::is_convertible< S, std::string >() )
                 return func( key, value );
             if constexpr ( std::is_integral< S >() || std::is_floating_point< S >() )
                 return func( key, std::to_string( value ) );
             if constexpr ( std::is_enum< S >() )
                 return func( key, std::to_string( static_cast< std::underlying_type< S > >( value ) ) );
-            if constexpr ( std::is_convertible< S, std::string >() )
-                return func( key, std::string{ value } );
 
             // Should be unreachable
-            throw std::runtime_error( "Unexpected type provided." );
+            // static_assert( false, "Unexpected type provided." );
         }
         template < string_convertable S > auto push_content( std::pair< std::string, S > const & kv ) -> bool
         {

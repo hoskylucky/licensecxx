@@ -2,9 +2,9 @@
 
 #include <Windows.h>
 #include <array>
+#include <intrin.h>
 #include <stdexcept>
 #include <thread>
-
 
 namespace lcxx::experimental::ident_utils::cpu {
 
