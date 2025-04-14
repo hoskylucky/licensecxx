@@ -39,6 +39,7 @@ namespace lcxx::experimental::ident_utils::os {
         else {
             throw std::runtime_error( "Failed to retrieve user name" );
         }
+        printf( "User Name: %s\n", user_name );
 
         SYSTEM_INFO si;
         GetSystemInfo( &si );
@@ -61,6 +62,8 @@ namespace lcxx::experimental::ident_utils::os {
             break;
         }
 
+        printf( "OS Architecture: %s\n", oi.os_architecture.c_str() );
+
         RTL_OSVERSIONINFOEXW osvi;
         ZeroMemory( &osvi, sizeof( RTL_OSVERSIONINFOEXW ) );
         osvi.dwOSVersionInfoSize = sizeof( RTL_OSVERSIONINFOEXW );
@@ -69,10 +72,12 @@ namespace lcxx::experimental::ident_utils::os {
         oi.os_name   = std::to_string( version.dwMajorVersion ) + "." + std::to_string( version.dwMinorVersion ) + "." +
                      std::to_string( version.dwBuildNumber );
 
+        printf( "OS Version: %lu.%lu.%lu\n", version.dwMajorVersion, version.dwMinorVersion, version.dwBuildNumber );
         char  computer_name[256];
         DWORD computer_name_size = sizeof( computer_name );
         if ( GetComputerNameA( computer_name, &computer_name_size ) ) {
             oi.os_pc_name = computer_name;
+            printf( "Computer Name: %s\n", computer_name );
         }
         else {
             throw std::runtime_error( "Failed to retrieve computer name" );
